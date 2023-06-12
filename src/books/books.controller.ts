@@ -7,12 +7,13 @@ import {
   Post,
   Body,
   Put,
-  Delete, UseGuards
-} from "@nestjs/common";
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDTO } from './dtos/create-book.dto';
 import { UpdateBookDTO } from './dtos/update-book.dto';
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('books')
 export class BooksController {
@@ -40,8 +41,9 @@ export class BooksController {
   @UseGuards(JwtAuthGuard)
   like(
     @Body('bookId', new ParseUUIDPipe()) bookId: string,
+    @Body('userId', new ParseUUIDPipe()) userId: string,
   ) {
-    return this.booksService.like(bookId);
+    return this.booksService.like(bookId, userId);
   }
 
   @Put('/:id')
